@@ -1,5 +1,3 @@
-
-
 CREATE TABLE "category" (
     "category_id" varchar(4)   NOT NULL,
     "category" varchar(50)   NOT NULL,
@@ -23,8 +21,8 @@ CREATE TABLE "campaign" (
     "contact_id" int   NOT NULL,
     "company_name" varchar(100)   NOT NULL,
     "description" varchar(200)   NOT NULL,
-    "goal" int   NOT NULL,
-    "pledged" int   NOT NULL,
+    "goal" numeric(12,2)   NOT NULL,
+    "pledged" numeric(12,2)   NOT NULL,
     "backers_count" int   NOT NULL,
     "country" varchar(2)   NOT NULL,
     "currency" varchar(3)   NOT NULL,
@@ -53,4 +51,35 @@ REFERENCES "category" ("category_id");
 
 ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_subcategory_id" FOREIGN KEY("subcategory_id")
 REFERENCES "subcategory" ("subcategory_id");
+
+
+---Upload csv files
+
+COPY campaign(cf_id, contact_id, company_name, description, goal, pledged, 
+	backers_count, country, currency, launch_date, end_date, category_id, subcategory_id
+)
+FROM 'C:\data\campaign.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+COPY category(category_id, category
+)
+FROM 'C:\data\category.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+COPY contacts(contact_id, first_name, last_name, email
+)
+FROM 'C:\data\contacts.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY subcategory(subcategory_id, subcategory
+)
+FROM 'C:\data\subcategory.csv'
+DELIMITER ','
+CSV HEADER;
+
 
